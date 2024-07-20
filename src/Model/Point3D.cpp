@@ -2,7 +2,6 @@
 #include <cmath>
 #include <exception>
 #include <initializer_list>
-#include <string>
 #include <vector>
 
 Point3D::Point3D(std::initializer_list<double> Ilist):
