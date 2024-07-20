@@ -8,6 +8,7 @@
 #include "Line3D.hpp"
 #include "Point3D.hpp"
 #include <initializer_list>
+#include <string>
 #include <vector>
 
 class Model3D {
@@ -15,10 +16,12 @@ class Model3D {
 private:
     std::vector<Line3D> m_lines;
     std::vector<Face3D> m_faces;
+    std::string m_name;
 
 public:
     explicit Model3D(
-        std::initializer_list<Line3D> lineList={},
+        std::string name="", 
+        std::initializer_list<Line3D> lineList={}, 
         std::initializer_list<Face3D> faceList={}
     ) noexcept;
 
@@ -35,8 +38,11 @@ public:
     void removeLine(int index);
     void removeFace(int index);
 
-    void addLine(const Line3D& newLine) noexcept;
-    void addFace(const Face3D& newFace) noexcept;
+    void addLine(const Line3D& newLine);
+    void addFace(const Face3D& newFace);
+
+    std::string getName() const noexcept;
+    void modifyName(const std::string& newName) noexcept;
 
 };
 
