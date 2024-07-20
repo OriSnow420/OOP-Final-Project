@@ -21,7 +21,7 @@ public:
 
     bool operator==(const Point3D& rhs) const noexcept;
 
-    double AbsoluteValue() const noexcept;
+    virtual double AbsoluteValue() const noexcept;
 
     static double distance(const Point3D& p1, const Point3D& p2) noexcept;
 
