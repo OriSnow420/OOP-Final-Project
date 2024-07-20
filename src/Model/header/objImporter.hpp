@@ -4,5 +4,13 @@
 #ifndef objImporter_hpp
 #define objImporter_hpp
 
-// TODO: finish the class
+#include "Importer.hpp"
+class objImporter : public Importer {
+private:
+    
+public:
+
+    virtual Model3D Load(std::string path) override;
+};
+
 #endif
