@@ -1,22 +1,18 @@
 #include "header/objImporter.hpp"
-#include "header/Face3D.hpp"
-#include "header/Model3D.hpp"
-#include "header/Point3D.hpp"
 
-#include <exception>
-#include <sstream>
 #include <string>
-#include <fstream>
+#include <sstream>
+#include <regex>
 
-Model3D objImporter::Load(std::string path){
-    std::ifstream file {path};
-    if(!file){
-        throw std::exception("Cannot Open the File!");
-    }
+bool objImporter::checkExtension(std::string path){
+    return std::regex_match(path, std::regex("^.*\\.obj$"));
+}
+
+Model3D objImporter::read(){
     Model3D result;
     std::vector<Point3D> listPoint;
     bool hasName = false;
-    for(std::string line; std::getline(file, line); ){
+    for(std::string line; std::getline(getFile(), line); ){
         if (line[0] == '#') {
             continue;
         } else if (line[0] == 'g') {
