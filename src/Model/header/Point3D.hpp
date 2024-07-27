@@ -25,6 +25,7 @@ public:
 
     static double distance(const Point3D& p1, const Point3D& p2) noexcept;
 
+    double getCoordinate(int index) const;
     void setCoordinate(double newCoordinate, int index);
     void setCoordinate(double newX, double newY, double newZ) noexcept;
 };

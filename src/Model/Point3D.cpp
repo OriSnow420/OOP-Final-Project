@@ -59,3 +59,10 @@ void Point3D::setCoordinate(double newCoordinate, int index) {
 void Point3D::setCoordinate(double newX, double newY, double newZ) noexcept {
     m_coordinates = {newX, newY, newZ};
 }
+
+double Point3D::getCoordinate(int index) const {
+    if(index < 0 || index >= 3) {
+        throw std::exception("Index out of range!");
+    }
+    return m_coordinates[index];
+}
