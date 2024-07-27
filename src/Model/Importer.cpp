@@ -5,7 +5,7 @@
 #include <string>
 
 bool Importer::isOpen(){
-    return static_cast<bool>(m_file);
+    return m_file.is_open();
 }
 
 void Importer::OpenFile(std::string path){
@@ -22,7 +22,7 @@ void Importer::close(){
 
 Model3D Importer::Load(std::string path){
     if (!checkExtension(path)) {
-        throw std::exception("Extension Name Error!");
+        throw std::exception("Invalid file name!");
     }
     OpenFile(path);
     Model3D model = read();
