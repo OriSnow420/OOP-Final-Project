@@ -88,3 +88,7 @@ std::string Model3D::getName() const noexcept {
 void Model3D::modifyName(const std::string& newName) noexcept {
     m_name = newName;
 }
+
+bool Model3D::empty() const {
+    return m_lines.empty() && m_faces.empty();
+}

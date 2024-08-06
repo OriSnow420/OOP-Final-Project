@@ -44,6 +44,9 @@ public:
     std::string getName() const noexcept;
     void modifyName(const std::string& newName) noexcept;
 
+    bool empty() const;
+
+
 };
 
 #endif
