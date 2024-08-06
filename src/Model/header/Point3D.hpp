@@ -5,6 +5,7 @@
 
 #include <initializer_list>
 #include <vector>
+#include <iostream>
 
 class Point3D {
 
@@ -28,6 +29,9 @@ public:
     double getCoordinate(int index) const;
     void setCoordinate(double newCoordinate, int index);
     void setCoordinate(double newX, double newY, double newZ) noexcept;
+
+    friend std::ostream& operator<<(std::ostream& out, const Point3D& point);
+    friend std::istream& operator>>(std::istream& in, Point3D& point);
 };
 
 #endif
