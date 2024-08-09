@@ -3,6 +3,7 @@
 
 #include <memory>
 #include <vector>
+#include <optional>
 #include "../../Model/header/Model3D.hpp"
 #include "../../Model/header/Importer.hpp"
 #include "../../Model/header/Exporter.hpp"
@@ -49,25 +50,25 @@ public:
         return m_Ptr;
     }
 
-    std::vector<Face3D> getFace() const;
-    void deleteFace(int index);
-    void addFace(const Point3D& point1, const Point3D& point2,
-                 const Point3D& point3);
-    std::vector<Point3D> pointsInFace(int index) const;
-    void modifyPointInFace(int index, int whichPoint, 
-                           const Point3D& newPoint);
+    std::vector<Face3D> getFace() const noexcept;
+    bool deleteFace(int index) noexcept;
+    bool addFace(const Point3D& point1, const Point3D& point2,
+                 const Point3D& point3) noexcept;
+    std::optional<std::vector<Point3D>> pointsInFace(int index) const noexcept;
+    bool modifyPointInFace(int index, int whichPoint, 
+                           const Point3D& newPoint) noexcept;
 
-    std::vector<Line3D> getLine() const;
-    void deleteLine(int index);
-    void addLine(const Point3D& point1, const Point3D& point2);
-    std::vector<Point3D> pointsInLine(int index) const;
-    void modifyPointInLine(int index, int whichPoint, 
-                           const Point3D& newPoint);
+    std::vector<Line3D> getLine() const noexcept;
+    bool deleteLine(int index) noexcept;
+    bool addLine(const Point3D& point1, const Point3D& point2) noexcept;
+    std::optional<std::vector<Point3D>> pointsInLine(int index) const noexcept;
+    bool modifyPointInLine(int index, int whichPoint, 
+                           const Point3D& newPoint) noexcept;
     
-    Statistics showStat() const;
+    Statistics showStat() const noexcept;
 
-    void read(std::string path);
-    void write(std::string path);
+    bool read(std::string path) noexcept;
+    bool write(std::string path) const noexcept;
 
 };
 

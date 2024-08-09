@@ -1,6 +1,8 @@
 #include "header/Controller.hpp"
 #include <algorithm>
+#include <exception>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -10,45 +12,79 @@ Controller::Controller(Importer* importer, Exporter* exporter) :
 
 Controller::~Controller() {}
 
-std::vector<Face3D> Controller::getFace() const {
+std::vector<Face3D> Controller::getFace() const noexcept{
     return m_pModel->getFaces();
 }
 
-void Controller::deleteFace(int index) {
+bool Controller::deleteFace(int index) noexcept{
+    try {
     m_pModel->removeFace(index);
+    } catch (std::exception e) {
+        return false;
+    }
+    return true;
 }
 
-void Controller::addFace(const Point3D& point1, const Point3D& point2,
-                         const Point3D& point3) {
-    m_pModel->addFace(Face3D(point1, point2, point3));
+bool Controller::addFace(const Point3D& point1, const Point3D& point2,
+                         const Point3D& point3) noexcept {
+    try {
+        m_pModel->addFace(Face3D(point1, point2, point3));
+    } catch (std::exception e) {
+        return false;
+    }
+    return true;
 }
 
-std::vector<Point3D> Controller::pointsInFace(int index) const {
-    return m_pModel->getFaces().at(index).getPoints();
+std::optional<std::vector<Point3D>> Controller::pointsInFace
+(int index) const noexcept {
+    try {
+        return m_pModel->getFaces().at(index).getPoints();
+    } catch (std::exception e) {
+        return std::nullopt;
+    }
 }
 
-void Controller::modifyPointInFace(int index, int whichPoint,
-                                   const Point3D& newPoint) {
-    m_pModel->modifyFace(index, whichPoint, newPoint);
+bool Controller::modifyPointInFace(int index, int whichPoint,
+                                   const Point3D& newPoint) noexcept {
+    try {
+        m_pModel->modifyFace(index, whichPoint, newPoint);
+    } catch (std::exception e) {
+        return false;
+    }
+    return true;
 }
 
-std::vector<Line3D> Controller::getLine() const {
+std::vector<Line3D> Controller::getLine() const noexcept {
     return m_pModel->getLines();
 }
 
-void Controller::deleteLine(int index) {
-    m_pModel->removeLine(index);
+bool Controller::deleteLine(int index) noexcept {
+    try { 
+        m_pModel->removeLine(index);
+    } catch (std::exception e) {
+        return false;
+    }
+    return true;
 }
 
-void Controller::addLine(const Point3D& point1, const Point3D& point2) {
-    m_pModel->addLine(Line3D(point1, point2));
+bool Controller::addLine(const Point3D& point1, const Point3D& point2) noexcept{
+    try {
+        m_pModel->addLine(Line3D(point1, point2));
+    } catch (std::exception e) {
+        return false;
+    }
+    return true;
 }
 
-std::vector<Point3D> Controller::pointsInLine(int index) const {
-    return m_pModel->getLines().at(index).getPoints();
+std::optional<std::vector<Point3D>> Controller::pointsInLine(int index) const noexcept {
+    try {
+        return m_pModel->getLines().at(index).getPoints();
+    } catch (std::exception e) {
+        return std::nullopt;
+    }
 }
 
-Controller::Statistics Controller::showStat() const {
+Controller::Statistics Controller::showStat() const noexcept{
     auto faces = m_pModel->getFaces();
     auto lines = m_pModel->getLines();
     double face_area = 0.0;
@@ -107,10 +143,20 @@ double Controller::calculateAABB() const {
     return result;
 }
 
-void Controller::read(std::string path) {
-    *m_pModel = m_pImporter->Load(path);
+bool Controller::read(std::string path) noexcept{
+    try {
+        *m_pModel = m_pImporter->Load(path);
+    } catch (std::exception e) {
+        return false;
+    }
+    return true;
 }
 
-void Controller::write(std::string path) {
-    m_pExporter->Write(path, *m_pModel);
+bool Controller::write(std::string path) const noexcept {
+    try {
+        m_pExporter->Write(path, *m_pModel);
+    } catch (std::exception e) {
+        return false;
+    }
+    return true;
 }
