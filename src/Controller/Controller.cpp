@@ -1,23 +1,14 @@
 #include "header/Controller.hpp"
 #include <algorithm>
 #include <memory>
+#include <string>
 #include <vector>
 
-Controller::Controller(const Importer* importer, const Exporter* exporter) :
+Controller::Controller(Importer* importer, Exporter* exporter) :
     m_pImporter(importer), m_pExporter(exporter), 
     m_pModel(new Model3D()) {}
 
 Controller::~Controller() {}
-
-std::shared_ptr<Controller> Controller::GetInstance(
-    const Importer* importer, const Exporter* exporter
-) {
-    if (!m_Ptr) {
-        m_Ptr = std::make_shared<Controller>(
-            new Controller(importer, exporter));
-    }
-    return m_Ptr;
-}
 
 std::vector<Face3D> Controller::getFace() const {
     return m_pModel->getFaces();
@@ -114,4 +105,12 @@ double Controller::calculateAABB() const {
                  (MaxAndMins[4] - MaxAndMins[5]);
     }
     return result;
+}
+
+void Controller::read(std::string path) {
+    *m_pModel = m_pImporter->Load(path);
+}
+
+void Controller::write(std::string path) {
+    m_pExporter->Write(path, *m_pModel);
 }

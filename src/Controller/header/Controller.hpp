@@ -11,9 +11,9 @@
 class Controller {
 private:
     std::shared_ptr<Model3D> m_pModel;
-    const Importer* m_pImporter;
-    const Exporter* m_pExporter;
-    explicit Controller(const Importer* importer, const Exporter* exporter);
+    std::unique_ptr<Importer> m_pImporter;
+    std::unique_ptr<Exporter> m_pExporter;
+    explicit Controller(Importer* importer, Exporter* exporter);
 
     static std::shared_ptr<Controller> m_Ptr;
 
@@ -23,6 +23,8 @@ private:
     Controller& operator=(Controller&&) = delete;
     Controller() = delete;
     Controller(const Controller&) = delete;
+    Controller(Controller&&) = delete;
+
 
 public:
 
@@ -36,9 +38,16 @@ public:
     };
 
     virtual ~Controller();
-    static std::shared_ptr<Controller> GetInstance(
-        const Importer* importer, const Exporter* exporter
-    );
+
+    template<class Imp, class Exp>
+    static std::shared_ptr<Controller> GetInstance() {
+        if (!m_Ptr) {
+            m_Ptr = std::make_shared<Controller>(new Controller(
+                new Imp(), new Exp()
+            ));
+        }
+        return m_Ptr;
+    }
 
     std::vector<Face3D> getFace() const;
     void deleteFace(int index);
@@ -57,6 +66,8 @@ public:
     
     Statistics showStat() const;
 
+    void read(std::string path);
+    void write(std::string path);
 
 };
 
