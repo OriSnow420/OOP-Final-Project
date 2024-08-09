@@ -25,6 +25,9 @@ public:
         std::initializer_list<Face3D> faceList={}
     ) noexcept;
 
+    Model3D& operator=(const Model3D&) = default;
+    Model3D(const Model3D&) = default;
+
     std::vector<Point3D> getPoints() const noexcept;
     std::vector<Line3D> getLines() const noexcept;
     std::vector<Face3D> getFaces() const noexcept;
@@ -46,6 +49,7 @@ public:
 
     bool empty() const;
 
+    
 
 };
 
