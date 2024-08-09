@@ -14,7 +14,7 @@ private:
     std::shared_ptr<Model3D> m_pModel;
     std::unique_ptr<Importer> m_pImporter;
     std::unique_ptr<Exporter> m_pExporter;
-    explicit Controller(Importer* importer, Exporter* exporter);
+    Controller(Importer* importer, Exporter* exporter);
 
     static std::shared_ptr<Controller> m_Ptr;
 
@@ -43,11 +43,21 @@ public:
     template<class Imp, class Exp>
     static std::shared_ptr<Controller> GetInstance() {
         if (!m_Ptr) {
-            m_Ptr = std::make_shared<Controller>(new Controller(
+            m_Ptr = std::shared_ptr<Controller>(new Controller(
                 new Imp(), new Exp()
             ));
         }
         return m_Ptr;
+    }
+
+    template<class Imp>
+    void changeImporter() noexcept {
+        m_pImporter = std::make_unique(new Imp());
+    }
+
+    template<class Exp>
+    void changeExporter() noexcept {
+        m_pExporter = std::make_unique(new Exp());
     }
 
     std::vector<Face3D> getFace() const noexcept;

@@ -1,7 +1,6 @@
 #include "View/header/Viewer.hpp"
 
 int main(int argc, char** argv) {
-    Viewer();
+    new Viewer();
     return 0;
 }
-

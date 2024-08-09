@@ -6,6 +6,9 @@
 #include <string>
 #include <vector>
 
+
+std::shared_ptr<Controller> Controller::m_Ptr = nullptr;
+
 Controller::Controller(Importer* importer, Exporter* exporter) :
     m_pImporter(importer), m_pExporter(exporter), 
     m_pModel(new Model3D()) {}
@@ -67,7 +70,8 @@ bool Controller::deleteLine(int index) noexcept {
     return true;
 }
 
-bool Controller::addLine(const Point3D& point1, const Point3D& point2) noexcept{
+bool Controller::addLine(const Point3D& point1, const Point3D& point2) 
+noexcept{
     try {
         m_pModel->addLine(Line3D(point1, point2));
     } catch (std::exception e) {
@@ -76,7 +80,8 @@ bool Controller::addLine(const Point3D& point1, const Point3D& point2) noexcept{
     return true;
 }
 
-std::optional<std::vector<Point3D>> Controller::pointsInLine(int index) const noexcept {
+std::optional<std::vector<Point3D>> Controller::pointsInLine(int index) 
+const noexcept {
     try {
         return m_pModel->getLines().at(index).getPoints();
     } catch (std::exception e) {

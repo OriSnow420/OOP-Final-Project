@@ -9,6 +9,8 @@ Viewer::Viewer() {
     main_loop();
 }
 
+Viewer::~Viewer() {}
+
 void Viewer::initialize() {
     // TODO: Let user able to choose importer and exporter 
     // (Although there is only one choice)
@@ -69,4 +71,41 @@ bool Viewer::one_loop() {
         std::cout << "Invalid Input. Please retry." << std::endl;
     }
     return true;
+}
+
+void Viewer::importModel() {
+
+}
+void Viewer::exportModel() {
+    
+}
+void Viewer::listAllFaces() {
+    
+}
+void Viewer::deleteFace() {
+    
+}
+void Viewer::addFace() {
+    
+}
+void Viewer::pointsInFace() {
+    
+}
+void Viewer::modifyFace() {
+    
+}
+void Viewer::listAllLines() {
+    
+}
+void Viewer::deleteLine() {
+    
+}
+void Viewer::addLine() {
+    
+}
+void Viewer::pointsInLine() {
+    
+}
+void Viewer::modifyLine() {
+    
 }

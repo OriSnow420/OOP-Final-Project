@@ -33,3 +33,5 @@ const std::string& filename) {
         getFile() << std::endl;
     }
 }
+
+objExporter::~objExporter() {}

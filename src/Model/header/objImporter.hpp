@@ -9,10 +9,11 @@
 
 class objImporter : public Importer {
 private:
-    virtual bool checkExtension(std::string path);
+    virtual bool checkExtension(std::string path) const override;
     virtual Model3D read() override;
 
 public:
+    ~objImporter();
 
 };
 

@@ -13,6 +13,9 @@ private:
     virtual bool checkExtension(const std::string& path) const override;
     virtual void writeToFile(const Model3D& model, 
     const std::string& finename) override;
+
+public:
+    ~objExporter();
 };
 
 #endif

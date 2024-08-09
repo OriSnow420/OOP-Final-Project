@@ -33,3 +33,5 @@ Model3D Importer::Load(std::string path){
 std::ifstream& Importer::getFile() {
     return m_file;
 }
+
+Importer::~Importer() {}

@@ -4,7 +4,7 @@
 #include <sstream>
 #include <regex>
 
-bool objImporter::checkExtension(std::string path){
+bool objImporter::checkExtension(std::string path) const {
     return std::regex_match(path, std::regex("^.*\\.obj$"));
 }
 
@@ -67,3 +67,5 @@ Model3D objImporter::read(){
     }
     return result;
 }
+
+objImporter::~objImporter() {}
