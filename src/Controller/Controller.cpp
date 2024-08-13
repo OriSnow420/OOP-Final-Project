@@ -57,6 +57,16 @@ bool Controller::modifyPointInFace(int index, int whichPoint,
     return true;
 }
 
+bool Controller::modifyPointInLine(int index, int whichPoint,
+                                   const Point3D& newPoint) noexcept {
+    try {
+        m_pModel->modifyLine(index, whichPoint, newPoint);
+    } catch (std::exception e) {
+        return false;
+    }
+    return true;
+}
+
 std::vector<Line3D> Controller::getLine() const noexcept {
     return m_pModel->getLines();
 }

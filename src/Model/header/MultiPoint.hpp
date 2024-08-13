@@ -7,6 +7,7 @@
 #include <algorithm>
 #include <exception>
 #include <initializer_list>
+#include <ostream>
 
 template<size_t N>
 class MultiPoint {
@@ -57,6 +58,21 @@ public:
         return m_points[index];
     }
 
+    template<size_t M>
+    friend std::ostream& operator<<
+    (std::ostream& out, const MultiPoint<M>& points); 
+
 };
+
+template<size_t M>
+std::ostream& operator<<
+(std::ostream& out, const MultiPoint<M>& points) {
+    out << "[";
+    for (const auto& point : points.m_points) {
+        out << points << ",";
+    }
+    out << "]";
+    return out;
+}
 
 #endif
