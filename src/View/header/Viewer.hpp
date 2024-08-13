@@ -10,6 +10,7 @@ private:
     virtual void initialize();
     void main_loop();
     virtual bool one_loop();
+    virtual void exit();
 
     virtual void importModel();
     virtual void exportModel();
@@ -23,6 +24,7 @@ private:
     virtual void addLine();
     virtual void pointsInLine();
     virtual void modifyLine();
+    virtual void showStatistics();
 
 
 public:

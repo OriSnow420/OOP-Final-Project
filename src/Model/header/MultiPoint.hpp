@@ -68,8 +68,11 @@ template<size_t M>
 std::ostream& operator<<
 (std::ostream& out, const MultiPoint<M>& points) {
     out << "[";
-    for (const auto& point : points.m_points) {
-        out << points << ",";
+    for (int i = 0; i < points.m_points.size(); i++) {
+        out << points.m_points[i];
+        if (i < points.m_points.size() - 1) {
+            out << ", ";
+        }
     }
     out << "]";
     return out;

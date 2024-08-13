@@ -116,7 +116,7 @@ Controller::Statistics Controller::showStat() const noexcept{
     return Statistics{
         m_pModel->face_count(),
         face_area,
-        m_pModel->face_count(),
+        m_pModel->line_count(),
         line_length,
         3 * m_pModel->face_count() + 2 * m_pModel->line_count(),
         calculateAABB()

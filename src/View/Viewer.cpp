@@ -8,6 +8,7 @@
 Viewer::Viewer() {
     initialize();
     main_loop();
+    exit();
 }
 
 Viewer::~Viewer() {}
@@ -37,7 +38,8 @@ bool Viewer::one_loop() {
               << "10. Add line." << std::endl 
               << "11. Points in line. " << std::endl
               << "12. Modify line." << std::endl
-              << "13. Exit." << std::endl;
+              << "13. Show Statistics." << std::endl
+              << "14. Exit." << std::endl;
     std::cout << "Type the number of the options:";
     int num;
     std::cin >> num;
@@ -66,7 +68,8 @@ bool Viewer::one_loop() {
     } else if (num == 12) {
         modifyLine();
     } else if (num == 13) {
-        std::cout << "Exiting..." << std::endl;
+        showStatistics();
+    } else if (num == 14) {
         return false;
     } else {
         std::cout << "Invalid Input. Please retry." << std::endl;
@@ -231,4 +234,19 @@ void Viewer::modifyLine() {
         std::cout << "Modify line failed! Please retry!" << std::endl;
         modifyLine();
     }
+}
+
+void Viewer::showStatistics() {
+    auto stat = m_pController->showStat();
+    std::cout << "Face Count: " << stat.FaceCount << std::endl
+              << "Face Area: " << stat.FaceArea << std::endl
+              << "Line Count: " << stat.LineCount << std::endl 
+              << "Line Length:" <<stat.LineLength << std::endl 
+              << "Point Count: " << stat.PointCount << std::endl 
+              << "Volume of Axix-Aligned Bounding Box: " << stat.AABBVolume
+              << std::endl;
+}
+
+void Viewer::exit() {
+    std::cout << "Exiting..." << std::endl;
 }
