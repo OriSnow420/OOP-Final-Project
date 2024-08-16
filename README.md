@@ -32,3 +32,6 @@ MultiPoint doesn't support input, because operator>> is not overloaded for Multi
 
 # Path of the File
 Absolute Path is supported. The support of relative path is untested.
+
+# Build
+At least C++17 standrd.
