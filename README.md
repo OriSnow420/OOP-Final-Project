@@ -34,4 +34,9 @@ MultiPoint doesn't support input, because operator>> is not overloaded for Multi
 Absolute Path is supported. The support of relative path is untested.
 
 # Build
-At least C++17 standrd.
+At least C++17 standrd. Building with xmake and MSVC is appreciated.
+
+# About Development Environment
+Windows 11 家庭中文版 23H2
+Visual Studio Code 1.91.1
+Microsoft Visual Studio Community 2022 (64 位) - Current 版本 17.10.3
