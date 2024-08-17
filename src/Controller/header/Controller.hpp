@@ -19,7 +19,16 @@
 /*************************************************************************
 【类名】Controller
 【功能】作为程序的Controller完成各种功能
-【接口说明】         （必需）
+【接口说明】
+    虚析构函数
+    静态，获取实例
+    更改导入器
+    更改导出器
+    获取/增加/删除修改面/线段
+    获取单个面/线段内的点
+    从文件读入
+    向文件输出
+    获取模型统计信息
 【开发者及日期】李宜阳(liyiyang23@mails.tsinghua.edu.cn) 2024-07-20
 【更改记录】
     2024-08-06 完成了函数声明
@@ -36,7 +45,7 @@ private:
     static std::shared_ptr<Controller> m_Ptr;
 
     // Calculate the volume of *m_pModel's AABB
-    double calculateAABB() const;
+    double CalculateAABB() const;
 
     // Banned operations
     Controller& operator=(const Controller&) = delete;
@@ -85,7 +94,7 @@ public:
     }
 
     /*************************************************************************
-    【函数名称】Controller::changeImporter
+    【函数名称】Controller::ChangeImporter
     【函数功能】将Controller的导入器指定为新导入器
     【模板参数】
         Imp: 导入器类型, 要求是Importer的子类
@@ -96,12 +105,12 @@ public:
         2024-08-06 完成了函数定义
     *************************************************************************/
     template<class Imp>
-    void changeImporter() noexcept {
+    void ChangeImporter() noexcept {
         m_pImporter = std::make_unique(new Imp());
     }
 
     /*************************************************************************
-    【函数名称】Controller::changeExporter
+    【函数名称】Controller::ChangeExporter
     【函数功能】将Controller的导出器指定为新的导出器
     【模板参数】
         Exp: 导出器类型, 要求是Exporter的子类
@@ -112,33 +121,39 @@ public:
         2024-08-06 完成了函数定义
     *************************************************************************/
     template<class Exp>
-    void changeExporter() noexcept {
+    void ChangeExporter() noexcept {
         m_pExporter = std::make_unique(new Exp());
     }
 
     // Face Operations
-    std::vector<Face3D> getFace() const noexcept;
-    bool deleteFace(int index) noexcept;
-    bool addFace(const Point3D& point1, const Point3D& point2,
-                 const Point3D& point3) noexcept;
-    std::optional<std::vector<Point3D>> pointsInFace(int index) const noexcept;
-    bool modifyPointInFace(int index, int whichPoint, 
-                           const Point3D& newPoint) noexcept;
+    std::vector<Face3D> GetFace() const noexcept;
+    bool DeleteFace(int index) noexcept;
+    bool AddFace(
+        const Point3D& point1, 
+        const Point3D& point2,
+        const Point3D& point3) noexcept;
+    std::optional<std::vector<Point3D>> PointsInFace(int index) const noexcept;
+    bool ModifyPointInFace(
+        int index, 
+        int whichPoint, 
+        const Point3D& newPoint) noexcept;
 
     // Line Operations
-    std::vector<Line3D> getLine() const noexcept;
-    bool deleteLine(int index) noexcept;
-    bool addLine(const Point3D& point1, const Point3D& point2) noexcept;
-    std::optional<std::vector<Point3D>> pointsInLine(int index) const noexcept;
-    bool modifyPointInLine(int index, int whichPoint, 
-                           const Point3D& newPoint) noexcept;
+    std::vector<Line3D> GetLine() const noexcept;
+    bool DeleteLine(int index) noexcept;
+    bool AddLine(const Point3D& point1, const Point3D& point2) noexcept;
+    std::optional<std::vector<Point3D>> PointsInLine(int index) const noexcept;
+    bool ModifyPointInLine(
+        int index, 
+        int whichPoint, 
+        const Point3D& newPoint) noexcept;
     
     // Show Statistics
-    Statistics showStat() const noexcept;
+    Statistics ShowStat() const noexcept;
 
     // File Operations
-    bool read(std::string path) noexcept;
-    bool write(std::string path) const noexcept;
+    bool Read(std::string path) noexcept;
+    bool Write(std::string path) const noexcept;
 
 };
 

@@ -17,7 +17,12 @@
 /*************************************************************************
 【类名】Line3D
 【功能】模拟三维模型中的线段
-【接口说明】         （必需）
+【接口说明】
+    公有继承得到父类全部接口
+    通过初始化列表/三个点构造
+    默认构造函数
+    默认拷贝赋值/构造函数
+    计算长度函数
 【开发者及日期】李宜阳(liyiyang23@mails.tsinghua.edu.cn) 2024-07-20
 【更改记录】
     2024-07-20 完成了绝大多数函数的声明
@@ -28,18 +33,19 @@ class Line3D : public MultiPoint<2>{
 public:
     // Constructors
     explicit Line3D(std::initializer_list<Point3D> Ilist);
-    explicit Line3D(const Point3D& point1 = Point3D(), 
-                    const Point3D& point2 = Point3D());
+    explicit Line3D(
+        const Point3D& point1 = Point3D(), 
+        const Point3D& point2 = Point3D());
 
     // Default Destructor
-    ~Line3D() = default;
+    virtual ~Line3D() = default;
 
     // Default copy assignment and constructor
     Line3D& operator=(const Line3D&) = default;
     Line3D(const Line3D&) = default;
 
     // The length of the line.
-    double length() const noexcept;
+    double Length() const noexcept;
     
 };
 

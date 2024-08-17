@@ -20,6 +20,16 @@
 【类名】Point3D
 【功能】模拟三维空间中点的行为
 【接口说明】
+    通过初始化列表/三个坐标的构造函数
+    默认拷贝构造，拷贝赋值
+    默认虚析构函数
+    点的相加减
+    点的相等判断
+    点的绝对值，即到原点的距离（虚函数）
+    静态，计算两点距离
+    获取单个坐标
+    更改单个坐标/更改全部坐标
+    流的输入输出操作重载
 【开发者及日期】李宜阳(liyiyang23@mails.tsinghua.edu.cn) 2024-07-20
 【更改记录】
     2024-07-20 完成了绝大部分函数的声明
@@ -44,7 +54,7 @@ public:
     Point3D& operator=(const Point3D&) = default;
 
     // Default Destructor
-    ~Point3D() = default;
+    virtual ~Point3D() = default;
 
     // Add/Substract each coordinate respectively
     // e.g. (1, 3, 2) + (1, 1, 1) == (2, 4, 3)
@@ -58,14 +68,14 @@ public:
     virtual double AbsoluteValue() const noexcept;
 
     // Returns AbsoulteValue(p1 - p2)
-    static double distance(const Point3D& p1, const Point3D& p2) noexcept;
+    static double Distance(const Point3D& p1, const Point3D& p2) noexcept;
 
     // index should be 0, 1, 2. Returns m_coordinates[index].
-    double getCoordinate(int index) const;
+    double GetCoordinate(int index) const;
 
     // Coordinate Setters.
-    void setCoordinate(double newCoordinate, int index);
-    void setCoordinate(double newX, double newY, double newZ) noexcept;
+    void SetCoordinate(double newCoordinate, int index);
+    void SetCoordinate(double newX, double newY, double newZ) noexcept;
 
     // Input and Output. Format is (x, y, z) where x, y, z are the coordinates.
     friend std::ostream& operator<<(std::ostream& out, const Point3D& point);

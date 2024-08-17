@@ -26,9 +26,9 @@
 【更改记录】
     2024-07-20 完成了函数定义
 *************************************************************************/
-Point3D::Point3D(std::initializer_list<double> Ilist):
+Point3D::Point3D(std::initializer_list<double> Ilist) :
 m_coordinates(Ilist) {
-    if(Ilist.size() != 3){
+    if (Ilist.size() != 3) {
         throw std::exception(
             "Passing wrong number of coordinates");
     }
@@ -46,7 +46,7 @@ m_coordinates(Ilist) {
 【更改记录】
     2024-07-20 完成了函数定义
 *************************************************************************/
-Point3D::Point3D(double x, double y, double z) noexcept:
+Point3D::Point3D(double x, double y, double z) noexcept :
 m_coordinates({x, y, z}) {}
 
 /*************************************************************************
@@ -130,7 +130,7 @@ double Point3D::AbsoluteValue() const noexcept {
 【更改记录】
     2024-07-20 完成了函数定义
 *************************************************************************/
-double Point3D::distance(const Point3D &p1, const Point3D &p2) noexcept {
+double Point3D::Distance(const Point3D &p1, const Point3D &p2) noexcept {
     return (p1 - p2).AbsoluteValue();
 }
 
@@ -146,10 +146,10 @@ double Point3D::distance(const Point3D &p1, const Point3D &p2) noexcept {
 【更改记录】
     2024-07-20 完成了函数定义
 *************************************************************************/
-void Point3D::setCoordinate(double newCoordinate, int index) {
+void Point3D::SetCoordinate(double newCoordinate, int index) {
     if (index < 0 || index > 2) {
         throw std::exception(
-            "Passing wrond coordinate index");
+            "Passing wrong coordinate index");
     }
     m_coordinates[index] = newCoordinate;
 }
@@ -166,7 +166,7 @@ void Point3D::setCoordinate(double newCoordinate, int index) {
 【更改记录】
     2024-07-20 完成了函数定义
 *************************************************************************/
-void Point3D::setCoordinate(double newX, double newY, double newZ) noexcept {
+void Point3D::SetCoordinate(double newX, double newY, double newZ) noexcept {
     m_coordinates = {newX, newY, newZ};
 }
 
@@ -181,7 +181,7 @@ void Point3D::setCoordinate(double newX, double newY, double newZ) noexcept {
 【更改记录】
     2024-07-27 完成了函数定义
 *************************************************************************/
-double Point3D::getCoordinate(int index) const {
+double Point3D::GetCoordinate(int index) const {
     if(index < 0 || index >= 3) {
         throw std::exception("Index out of range!");
     }
@@ -200,16 +200,17 @@ double Point3D::getCoordinate(int index) const {
     2024-08-06 完成了函数定义
 *************************************************************************/
 std::ostream& operator<<(std::ostream& out, const Point3D& point) {
-    out << "(" << point.getCoordinate(0) << ", "
-               << point.getCoordinate(1) << ", "
-               << point.getCoordinate(2) << ")";
+    out << "(" << point.GetCoordinate(0) << ", "
+               << point.GetCoordinate(1) << ", "
+               << point.GetCoordinate(2) << ")";
     return out;
 }
 
 /*************************************************************************
 【函数名称】operator>>
-【函数功能】以(x, y, z)格式从流中获取Point3D类型。括号内部的空格将被忽略，不合法的
-    输入将使得in变为failbit状态。
+【函数功能】
+    以(x, y, z)格式从流中获取Point3D类型。括号内部的空格将被忽略，不合
+    法的输入将使得in变为failbit状态。
 【参数】
     in: std::istrema&类型，输入的流
     point: Point3D&类型，待输入的点
@@ -224,17 +225,17 @@ std::istream& operator>>(std::istream& in, Point3D& point) {
     char comma2;
     char rightParentheses;
     Point3D p;
-    if(in >> leftParentheses && leftParentheses == '(') {
+    if (in >> leftParentheses && leftParentheses == '(') {
         double num[3];
         in >> num[0] >> comma1 >> num[1] >> 
                         comma2 >> num[2] >> rightParentheses;
-        if(comma1 != ',' || comma2 != ',' || rightParentheses != ')') {
+        if (comma1 != ',' || comma2 != ',' || rightParentheses != ')') {
             // Invalid Inputs.
             in.setstate(std::ios_base::failbit); 
             return in; 
         }
         // Valid Inputs.
-        point.setCoordinate(num[0], num[1], num[2]);
+        point.SetCoordinate(num[0], num[1], num[2]);
         return in;
     }
     // Not begin with a '('

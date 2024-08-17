@@ -20,7 +20,16 @@
 /*************************************************************************
 【类名】Model3D
 【功能】模拟三维模型
-【接口说明】         （必需）
+【接口说明】
+    通过名字，线段列表，面列表的构造函数
+    默认析构函数
+    默认拷贝构造/拷贝复制函数
+    获取点/线/面集合
+    获取线/面数量
+    更改线/面
+    增加/删除线/面
+    获取/更改模型名字
+    查看模型是否为空
 【开发者及日期】李宜阳(liyiyang23@mails.tsinghua.edu.cn) 2024-07-20
 【更改记录】
     2024-07-20 完成了Model3D的大部分功能
@@ -43,39 +52,39 @@ public:
     ) noexcept;
 
     // Default Destructor
-    ~Model3D() = default;
+    virtual ~Model3D() = default;
 
     // Default Copy Stuff
     Model3D& operator=(const Model3D&) = default;
     Model3D(const Model3D&) = default;
 
     // Getters
-    std::vector<Point3D> getPoints() const noexcept;
-    std::vector<Line3D> getLines() const noexcept;
-    std::vector<Face3D> getFaces() const noexcept;
+    std::vector<Point3D> GetPoints() const noexcept;
+    std::vector<Line3D> GetLines() const noexcept;
+    std::vector<Face3D> GetFaces() const noexcept;
 
     // Count getters
-    int line_count() const noexcept;
-    int face_count() const noexcept;
+    int LineCount() const noexcept;
+    int FaceCount() const noexcept;
 
     // Modifiy a Line/Face
-    void modifyLine(int index, int whichPoint, const Point3D& newPoint);
-    void modifyFace(int index, int whichPoint, const Point3D& newPoint);
+    void ModifyLine(int index, int whichPoint, const Point3D& newPoint);
+    void ModifyFace(int index, int whichPoint, const Point3D& newPoint);
 
     // Remover
-    void removeLine(int index);
-    void removeFace(int index);
+    void RemoveLine(int index);
+    void RemoveFace(int index);
 
     // Adder
-    void addLine(const Line3D& newLine);
-    void addFace(const Face3D& newFace);
+    void AddLine(const Line3D& newLine);
+    void AddFace(const Face3D& newFace);
 
     // Things related to name
-    std::string getName() const noexcept;
-    void modifyName(const std::string& newName) noexcept;
+    std::string GetName() const noexcept;
+    void ModifyName(const std::string& newName) noexcept;
 
     // Check if the model is empty(no faces && no lines)
-    bool empty() const;
+    bool Empty() const;
 
 };
 

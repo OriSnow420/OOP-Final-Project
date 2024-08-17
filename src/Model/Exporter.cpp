@@ -12,7 +12,7 @@
 #include <fstream>
 
 /*************************************************************************
-【函数名称】Exporter::getFile
+【函数名称】Exporter::GetFile
 【函数功能】为子类提供获取文件的接口
 【参数】无参数
 【返回值】std::ostream&类型，返回文件本身
@@ -20,7 +20,7 @@
 【更改记录】
     2024-07-27 完成了函数定义
 *************************************************************************/
-std::ofstream& Exporter::getFile() {
+std::ofstream& Exporter::GetFile() {
     return m_file;
 }
 
@@ -36,13 +36,13 @@ std::ofstream& Exporter::getFile() {
 *************************************************************************/
 void Exporter::OpenFile(std::string path) {
     m_file.open(path, std::ios::out | std::ios::trunc);
-    if (!isOpen()) {
+    if (!IsOpen()) {
         throw std::exception("Cannot Open the File!");
     }
 }
 
 /*************************************************************************
-【函数名称】Exporter::isOpen
+【函数名称】Exporter::IsOpen
 【函数功能】判断是否已打开文件
 【参数】无参数
 【返回值】bool类型，文件已打开则返回true
@@ -50,12 +50,12 @@ void Exporter::OpenFile(std::string path) {
 【更改记录】
     2024-07-27 完成了函数定义
 *************************************************************************/
-bool Exporter::isOpen() const {
+bool Exporter::IsOpen() const {
     return m_file.is_open();
 }
 
 /*************************************************************************
-【函数名称】Exporter::close
+【函数名称】Exporter::Close
 【函数功能】关闭文件
 【参数】无参数
 【返回值】无返回值
@@ -63,12 +63,12 @@ bool Exporter::isOpen() const {
 【更改记录】
     2024-07-27 完成了函数定义
 *************************************************************************/
-void Exporter::close() {
+void Exporter::Close() {
     m_file.close();
 }
 
 /*************************************************************************
-【函数名称】Exporter::writeToFile
+【函数名称】Exporter::WriteToFile
 【函数功能】将模型写入文件
 【参数】
     path: 文件路径
@@ -79,10 +79,10 @@ void Exporter::close() {
     2024-07-27 完成了函数定义
 *************************************************************************/
 void Exporter::Write(std::string path, const Model3D& model) {
-    if (!checkExtension(path)) {
+    if (!CheckExtension(path)) {
         throw std::exception("Invalid file name!");
     }
     OpenFile(path);
-    writeToFile(model, path);
-    close();
+    WriteToFile(model, path);
+    Close();
 }

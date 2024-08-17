@@ -39,15 +39,15 @@ Model3D::Model3D(std::string name, std::initializer_list<Line3D> lineList,
 【更改记录】
     2024-07-20 完成了函数定义
 *************************************************************************/
-std::vector<Point3D> Model3D::getPoints() const noexcept {
+std::vector<Point3D> Model3D::GetPoints() const noexcept {
     std::vector<Point3D> result;
     for (const auto& line : m_lines) {
-        for (const auto& point : line.getPoints()) {
+        for (const auto& point : line.GetPoints()) {
             result.push_back(point);
         }
     }
     for (const auto& face : m_faces) {
-        for (const auto& point : face.getPoints()) {
+        for (const auto& point : face.GetPoints()) {
             result.push_back(point);
         }
     }
@@ -55,7 +55,7 @@ std::vector<Point3D> Model3D::getPoints() const noexcept {
 }
 
 /*************************************************************************
-【函数名称】Model3D::getLines
+【函数名称】Model3D::GetLines
 【函数功能】获取线端的列表
 【参数】无参数
 【返回值】线段的列表
@@ -63,12 +63,12 @@ std::vector<Point3D> Model3D::getPoints() const noexcept {
 【更改记录】
     2024-07-20 完成了函数定义
 *************************************************************************/
-std::vector<Line3D> Model3D::getLines() const noexcept {
+std::vector<Line3D> Model3D::GetLines() const noexcept {
     return m_lines;
 }
 
 /*************************************************************************
-【函数名称】Model3D::getFaces
+【函数名称】Model3D::GetFaces
 【函数功能】获取面的列表
 【参数】无参数
 【返回值】面的列表
@@ -76,12 +76,12 @@ std::vector<Line3D> Model3D::getLines() const noexcept {
 【更改记录】
     2024-07-20 完成了函数定义
 *************************************************************************/
-std::vector<Face3D> Model3D::getFaces() const noexcept {
+std::vector<Face3D> Model3D::GetFaces() const noexcept {
     return m_faces;
 }
 
 /*************************************************************************
-【函数名称】Model3D::line_count
+【函数名称】Model3D::LineCount
 【函数功能】获取线的数量
 【参数】无参数
 【返回值】线的数量
@@ -89,12 +89,12 @@ std::vector<Face3D> Model3D::getFaces() const noexcept {
 【更改记录】
     2024-07-20 完成了函数定义
 *************************************************************************/
-int Model3D::line_count() const noexcept {
+int Model3D::LineCount() const noexcept {
     return m_lines.size();
 }
 
 /*************************************************************************
-【函数名称】Model3D::line_count
+【函数名称】Model3D::FaceCount
 【函数功能】获取面的数量
 【参数】无参数
 【返回值】面的数量
@@ -102,12 +102,12 @@ int Model3D::line_count() const noexcept {
 【更改记录】
     2024-07-20 完成了函数定义
 *************************************************************************/
-int Model3D::face_count() const noexcept {
+int Model3D::FaceCount() const noexcept {
     return m_faces.size();
 }
 
 /*************************************************************************
-【函数名称】Model3D::modifyLine
+【函数名称】Model3D::ModifyLine
 【函数功能】更改线段
 【参数】
     index 线段的下标
@@ -121,23 +121,23 @@ int Model3D::face_count() const noexcept {
     2024-07-20 完成了函数定义
     2024-08-13 增加了重复线段检查
 *************************************************************************/
-void Model3D::modifyLine(int index, int whichPoint, const Point3D& newPoint){
-    if(index < 0 || index >= line_count()){
+void Model3D::ModifyLine(int index, int whichPoint, const Point3D& newPoint) {
+    if (index < 0 || index >= LineCount()) {
         throw std::exception("Index out of range Error!");
     }
     Line3D newLine = m_lines[index];
-    newLine.setPoint(newPoint, whichPoint);
+    newLine.SetPoint(newPoint, whichPoint);
     if (newLine != m_lines[index] && std::find(
         m_lines.begin(), m_lines.end(), newLine
     ) != m_lines.end()) {
         throw std::exception("Duplicate Lines!");
     } else {
-        m_lines[index].setPoint(newPoint, whichPoint);
+        m_lines[index].SetPoint(newPoint, whichPoint);
     }
 }
 
 /*************************************************************************
-【函数名称】Model3D::modifyFace
+【函数名称】Model3D::ModifyFace
 【函数功能】更改面
 【参数】
     index 面的下标
@@ -151,12 +151,12 @@ void Model3D::modifyLine(int index, int whichPoint, const Point3D& newPoint){
     2024-07-20 完成了函数定义
     2024-08-13 增加了重复面检查
 *************************************************************************/
-void Model3D::modifyFace(int index, int whichPoint, const Point3D& newPoint){
-    if(index < 0 || index >= face_count()){
+void Model3D::ModifyFace(int index, int whichPoint, const Point3D& newPoint){
+    if(index < 0 || index >= FaceCount()){
         throw std::exception("Index out of range Error!");
     }
     Face3D newFace = m_faces[index];
-    newFace.setPoint(newPoint, whichPoint);
+    newFace.SetPoint(newPoint, whichPoint);
     if (newFace != m_faces[index] && std::find(
         m_faces.begin(), m_faces.end(), newFace
     ) != m_faces.end()) {
@@ -165,7 +165,7 @@ void Model3D::modifyFace(int index, int whichPoint, const Point3D& newPoint){
 }
 
 /*************************************************************************
-【函数名称】Model3D::removeLine
+【函数名称】Model3D::RemoveLine
 【函数功能】删除线段
 【参数】
     index 线段的下标
@@ -175,15 +175,15 @@ void Model3D::modifyFace(int index, int whichPoint, const Point3D& newPoint){
 【更改记录】
     2024-07-20 完成了函数定义
 *************************************************************************/
-void Model3D::removeLine(int index){
-    if(index < 0 || index >= line_count()){
+void Model3D::RemoveLine(int index){
+    if(index < 0 || index >= LineCount()){
         throw std::exception("Index out of range Error!");
     }
     m_lines.erase(m_lines.begin() + index);
 }
 
 /*************************************************************************
-【函数名称】Model3D::removeFace
+【函数名称】Model3D::RemoveFace
 【函数功能】删除面
 【参数】
     index 面的下标
@@ -193,15 +193,15 @@ void Model3D::removeLine(int index){
 【更改记录】
     2024-07-20 完成了函数定义
 *************************************************************************/
-void Model3D::removeFace(int index){
-    if(index < 0 || index >= face_count()){
+void Model3D::RemoveFace(int index){
+    if(index < 0 || index >= FaceCount()){
         throw std::exception("Index out of range Error!");
     }
     m_faces.erase(m_faces.begin() + index);
 }
 
 /*************************************************************************
-【函数名称】Model3D::addLine
+【函数名称】Model3D::AddLine
 【函数功能】新增线段
 【参数】
     newLine 新的线段
@@ -211,7 +211,7 @@ void Model3D::removeFace(int index){
 【更改记录】
     2024-07-20 完成了函数定义
 *************************************************************************/
-void Model3D::addLine(const Line3D& newLine){
+void Model3D::AddLine(const Line3D& newLine){
     if (std::find(m_lines.begin(), 
         m_lines.end(), newLine) != m_lines.end()) {
         throw std::exception("Same Line already exists!");
@@ -220,7 +220,7 @@ void Model3D::addLine(const Line3D& newLine){
 }
 
 /*************************************************************************
-【函数名称】Model3D::addFace
+【函数名称】Model3D::AddFace
 【函数功能】新增面
 【参数】
     newLine 新的面
@@ -230,7 +230,7 @@ void Model3D::addLine(const Line3D& newLine){
 【更改记录】
     2024-07-20 完成了函数定义
 *************************************************************************/
-void Model3D::addFace(const Face3D& newFace){
+void Model3D::AddFace(const Face3D& newFace){
     if (std::find(m_faces.begin(), 
         m_faces.end(), newFace) != m_faces.end()) {
         throw std::exception("Same Face already exists!");
@@ -239,7 +239,7 @@ void Model3D::addFace(const Face3D& newFace){
 }
 
 /*************************************************************************
-【函数名称】Model3D::getName
+【函数名称】Model3D::GetName
 【函数功能】获取模型名字
 【参数】无参数
 【返回值】模型的名字
@@ -247,12 +247,12 @@ void Model3D::addFace(const Face3D& newFace){
 【更改记录】
     2024-07-20 完成了函数定义
 *************************************************************************/
-std::string Model3D::getName() const noexcept {
+std::string Model3D::GetName() const noexcept {
     return m_name;
 }
 
 /*************************************************************************
-【函数名称】Model3D::modifyName
+【函数名称】Model3D::ModifyName
 【函数功能】更改模型名字
 【参数】
     newName: 模型的新名字
@@ -261,12 +261,12 @@ std::string Model3D::getName() const noexcept {
 【更改记录】
     2024-07-20 完成了函数定义
 *************************************************************************/
-void Model3D::modifyName(const std::string& newName) noexcept {
+void Model3D::ModifyName(const std::string& newName) noexcept {
     m_name = newName;
 }
 
 /*************************************************************************
-【函数名称】Model3D::empty
+【函数名称】Model3D::Empty
 【函数功能】判断模型是否为空
 【参数】无参数
 【返回值】若模型为空返回true
@@ -274,6 +274,6 @@ void Model3D::modifyName(const std::string& newName) noexcept {
 【更改记录】
     2024-08-06 完成了函数定义
 *************************************************************************/
-bool Model3D::empty() const {
+bool Model3D::Empty() const {
     return m_lines.empty() && m_faces.empty();
 }

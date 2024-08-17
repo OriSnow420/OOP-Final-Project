@@ -1,19 +1,19 @@
 /*************************************************************************
-【文件名】objImporter.cpp
-【功能模块和目的】为objImporter提供函数实现
+【文件名】ObjImporter.cpp
+【功能模块和目的】为ObjImporter提供函数实现
 【开发者及日期】李宜阳(liyiyang23@mails.tsinghua.edu.cn) 2024-07-23
 【更改记录】
     2024-07-23 完成了函数实现
 *************************************************************************/
 
-#include "header/objImporter.hpp"
+#include "header/ObjImporter.hpp"
 
 #include <string>
 #include <sstream>
 #include <regex>
 
 /*************************************************************************
-【函数名称】objImporter::checkExtension
+【函数名称】ObjImporter::CheckExtension
 【函数功能】检查文件扩展名是否为obj
 【参数】
     path: 待检查的文件路径
@@ -22,12 +22,12 @@
 【更改记录】
     2024-07-23 完成了函数定义
 *************************************************************************/
-bool objImporter::checkExtension(std::string path) const {
+bool ObjImporter::CheckExtension(std::string path) const {
     return std::regex_match(path, std::regex("^.*\\.obj$"));
 }
 
 /*************************************************************************
-【函数名称】objImporter::read
+【函数名称】ObjImporter::Read
 【函数功能】从已打开的文件读取Model3D
 【参数】无参数
 【返回值】Model3D类型，返回读取到的模型
@@ -35,11 +35,11 @@ bool objImporter::checkExtension(std::string path) const {
 【更改记录】
     2024-07-23 完成了函数定义
 *************************************************************************/
-Model3D objImporter::read(){
+Model3D ObjImporter::Read(){
     Model3D result;
     std::vector<Point3D> listPoint;
     bool hasName = false;
-    for(std::string line; std::getline(getFile(), line); ){
+    for(std::string line; std::getline(GetFile(), line); ){
         if (line[0] == '#') {
             continue;
         } else if (line[0] == 'g') {
@@ -53,7 +53,7 @@ Model3D objImporter::read(){
             ss >> c;
             std::string name;
             ss >> name;
-            result.modifyName(name);
+            result.ModifyName(name);
             hasName = true;
         } else if (line[0] == 'v') {
             // A Point
@@ -64,7 +64,7 @@ Model3D objImporter::read(){
             for(int i = 0; i < 3; i++){
                 double coord;
                 ss >> coord;
-                listPoint.back().setCoordinate(coord, i);
+                listPoint.back().SetCoordinate(coord, i);
             }
         } else if (line[0] == 'l') {
             // A Line
@@ -79,7 +79,7 @@ Model3D objImporter::read(){
             if (x <= 0 || y <= 0) {
                 throw std::exception("Non-positive Index error!");
             }
-            result.addLine(Line3D(
+            result.AddLine(Line3D(
                 listPoint[x - 1], listPoint[y - 1]));
         } else if (line[0] == 'f') {
             // A Face
@@ -96,7 +96,7 @@ Model3D objImporter::read(){
             if (x <= 0 || y <= 0 || z <= 0) {
                 throw std::exception("Non-positive Index error!");
             }
-            result.addFace(Face3D(listPoint[x - 1], 
+            result.AddFace(Face3D(listPoint[x - 1], 
                 listPoint[y - 1], listPoint[z - 1]));
         } else {
             // Unexpected Cases, throw.
@@ -107,7 +107,7 @@ Model3D objImporter::read(){
 }
 
 /*************************************************************************
-【函数名称】objImporter::~objImporter
+【函数名称】ObjImporter::~ObjImporter
 【函数功能】默认析构函数
 【参数】无参数
 【返回值】无返回值
@@ -115,4 +115,4 @@ Model3D objImporter::read(){
 【更改记录】
     2024-07-23 完成了函数定义
 *************************************************************************/
-objImporter::~objImporter() {}
+ObjImporter::~ObjImporter() {}

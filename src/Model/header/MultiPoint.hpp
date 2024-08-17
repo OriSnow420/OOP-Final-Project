@@ -21,7 +21,8 @@
 【功能】表示多个点的集合体，作为Line3D和Face3D的共同基类
 【模板参数】
     N: size_t类型，集合体中点的数量
-【接口说明】         （必需）
+【接口说明】
+
 【开发者及日期】李宜阳(liyiyang23@mails.tsinghua.edu.cn) 2024-07-20
 【更改记录】
     2024-07-20 完成了大部分函数的定义
@@ -34,7 +35,7 @@ private:
     std::vector<Point3D> m_points; // The Points
 
     /*************************************************************************
-    【函数名称】MultiPoint::innerSet
+    【函数名称】MultiPoint::InnerSet
     【函数功能】更改单个点。是虚函数，支持派生类有特殊修改规则。
     【参数】
         newPoint: const Point3D&类型，修改后的点
@@ -45,7 +46,7 @@ private:
     【更改记录】
         2024-07-20 完成了函数定义
     *************************************************************************/
-    virtual void innerSet(const Point3D& newPoint, int index) {
+    virtual void InnerSet(const Point3D& newPoint, int index) {
         if (index < 0 || index >= N) {
             // Index Error, throws
             throw std::exception(
@@ -67,7 +68,7 @@ private:
     }
 
     /*************************************************************************
-    【函数名称】MultiPoint::assertNoDuplicate
+    【函数名称】MultiPoint::AssertNoDuplicate
     【函数功能】断言PointList中没有重复点。如果有，抛出异常。
     【参数】
         PointList: std::vector<Point3D>类型，待判断的点列
@@ -77,7 +78,7 @@ private:
     【更改记录】
         2024-08-16 完成了函数定义
     *************************************************************************/
-    static void assertNoDuplicate(const std::vector<Point3D>& PointList) {
+    static void AssertNoDuplicate(const std::vector<Point3D>& PointList) {
         if (PointList.size() <= 32) {
             // Small List, use o(n^2) algorithm
             for (int i = 0; i < PointList.size(); i++) {
@@ -91,10 +92,10 @@ private:
             // Large List, use o(nlog n) algorithm
             std::vector newList {PointList};
             std::sort(newList.begin(), newList.end(),
-            [](const Point3D& lhs, const Point3D& rhs)->bool{
+            [](const Point3D& lhs, const Point3D& rhs)->bool {
                 for(int i = 0; i < 3; i++) {
-                    if (lhs.getCoordinate(i) != rhs.getCoordinate(i)) {
-                        return lhs.getCoordinate(i) > rhs.getCoordinate(i);
+                    if (lhs.GetCoordinate(i) != rhs.GetCoordinate(i)) {
+                        return lhs.GetCoordinate(i) > rhs.GetCoordinate(i);
                     }
                 }
                 return false;
@@ -124,14 +125,13 @@ public:
         2024-07-20 完成了函数定义
         2024-08-16 在构造时会检查是否有重复点，若有会抛出异常
     *************************************************************************/
-    explicit MultiPoint(std::initializer_list<Point3D> Ilist
-     = {}):
+    explicit MultiPoint(std::initializer_list<Point3D> Ilist = {}) :
     m_points(Ilist) {
         if (Ilist.size() != N) {
             throw std::exception(
                 "Passing wrong number of arguments");
         }
-        assertNoDuplicate(Ilist); // Ilist converted to vector.
+        AssertNoDuplicate(Ilist); // Ilist converted to vector.
     }
 
     /*************************************************************************
@@ -157,8 +157,8 @@ public:
     *************************************************************************/
     bool operator==(const MultiPoint<N>& rhs) const noexcept {
         for (const auto& point : m_points) {
-            if (std::find(rhs.m_points.begin(), rhs.m_points.end(), 
-            point) == rhs.m_points.end()) {
+            if (std::find(rhs.m_points.begin(), rhs.m_points.end(), point) 
+                == rhs.m_points.end()) {
                 return false;
             }
         }
@@ -166,8 +166,8 @@ public:
     }
 
     /*************************************************************************
-    【函数名称】MultiPoint::setPoint
-    【函数功能】更改单个点，为public接口，调用内部的innerSet
+    【函数名称】MultiPoint::SetPoint
+    【函数功能】更改单个点，为public接口，调用内部的InnerSet
     【参数】
         newPoint: const Point3D&类型，修改后的点
         index: 待修改的点的下标，应为0~N-1
@@ -177,12 +177,12 @@ public:
     【更改记录】
         2024-07-20 完成了函数定义
     *************************************************************************/
-    void setPoint(const Point3D& newPoint, int index) {
-        innerSet(newPoint, index);
+    void SetPoint(const Point3D& newPoint, int index) {
+        InnerSet(newPoint, index);
     }
 
     /*************************************************************************
-    【函数名称】MultiPoint::getPoints
+    【函数名称】MultiPoint::GetPoints
     【函数功能】获取所有点的坐标
     【参数】无参数
     【返回值】std::vector<Point3D>类型，存储所有点的坐标
@@ -190,12 +190,12 @@ public:
     【更改记录】
         2024-07-20 完成了函数定义
     *************************************************************************/
-    std::vector<Point3D> getPoints() const noexcept {
+    std::vector<Point3D> GetPoints() const noexcept {
         return m_points;
     }
 
     /*************************************************************************
-    【函数名称】MultiPoint::getPoint
+    【函数名称】MultiPoint::GetPoint
     【函数功能】获取单个点的坐标
     【参数】
         index: int类型，获取点坐标的下标
@@ -205,7 +205,7 @@ public:
     【更改记录】
         2024-07-20 完成了函数定义
     *************************************************************************/
-    Point3D getPoint(int index) const {
+    Point3D GetPoint(int index) const {
         if(index < 0 || index >= N){
             throw std::exception(
                 "Passing wrong index!");

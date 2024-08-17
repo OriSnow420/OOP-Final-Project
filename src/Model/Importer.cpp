@@ -21,7 +21,7 @@
 【更改记录】
     2024-07-23 完成了函数定义
 *************************************************************************/
-bool Importer::isOpen(){
+bool Importer::IsOpen(){
     return m_file.is_open();
 }
 
@@ -36,9 +36,9 @@ bool Importer::isOpen(){
     2024-07-23 完成了函数定义
 *************************************************************************/
 void Importer::OpenFile(std::string path){
-    close();
+    Close();
     m_file.open(path);
-    if(!isOpen()){
+    if (!IsOpen()) {
         throw std::exception("Cannot Open the File!");
     }
 }
@@ -52,7 +52,7 @@ void Importer::OpenFile(std::string path){
 【更改记录】
     2024-07-23 完成了函数定义
 *************************************************************************/
-void Importer::close(){
+void Importer::Close(){
     m_file.close();
 }
 
@@ -67,12 +67,12 @@ void Importer::close(){
     2024-07-23 完成了函数定义
 *************************************************************************/
 Model3D Importer::Load(std::string path){
-    if (!checkExtension(path)) {
+    if (!CheckExtension(path)) {
         throw std::exception("Invalid file name!");
     }
     OpenFile(path);
-    Model3D model = read();
-    close();
+    Model3D model = Read();
+    Close();
     return model;
 }
 
@@ -85,7 +85,7 @@ Model3D Importer::Load(std::string path){
 【更改记录】
     2024-07-23 完成了函数定义
 *************************************************************************/
-std::ifstream& Importer::getFile() {
+std::ifstream& Importer::GetFile() {
     return m_file;
 }
 

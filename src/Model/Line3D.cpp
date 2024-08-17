@@ -21,7 +21,7 @@
 【更改记录】
     2024-07-20 完成了函数定义
 *************************************************************************/
-Line3D::Line3D(std::initializer_list<Point3D> Ilist):
+Line3D::Line3D(std::initializer_list<Point3D> Ilist) :
 MultiPoint<2>(Ilist) {}
  
 /*************************************************************************
@@ -37,7 +37,7 @@ MultiPoint<2>(Ilist) {}
     2024-07-20 完成了函数定义
 *************************************************************************/
 Line3D::Line3D(const Point3D& point1, const Point3D& point2) : 
-    MultiPoint<2>({point1, point2}) {}
+MultiPoint<2>({point1, point2}) {}
 
 /*************************************************************************
 【函数名称】Line3D::length
@@ -48,6 +48,6 @@ Line3D::Line3D(const Point3D& point1, const Point3D& point2) :
 【更改记录】
     2024-07-20 完成了函数定义
 *************************************************************************/
-double Line3D::length() const noexcept {
-    return Point3D::distance(getPoint(0), getPoint(1));
+double Line3D::Length() const noexcept {
+    return Point3D::Distance(GetPoint(0), GetPoint(1));
 }

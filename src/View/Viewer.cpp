@@ -23,9 +23,9 @@
     2024-08-13 完成了函数定义
 *************************************************************************/
 Viewer::Viewer() {
-    initialize();
-    main_loop();
-    exit();
+    Initialize();
+    MainLoop();
+    Exit();
 }
 
 /*************************************************************************
@@ -41,7 +41,7 @@ Viewer::~Viewer() {}
 
 
 /*************************************************************************
-【函数名称】Viewer::initialize
+【函数名称】Viewer::Initialize
 【函数功能】程序的初始化工作。是虚函数以便重写
 【参数】无参数
 【返回值】无返回值
@@ -49,15 +49,13 @@ Viewer::~Viewer() {}
 【更改记录】
     2024-08-13 完成了函数定义
 *************************************************************************/
-void Viewer::initialize() {
-    // TODO: Let user able to choose importer and exporter 
-    // (Although there is only one choice)
-    m_pController = Controller::GetInstance<objImporter, objExporter>();
+void Viewer::Initialize() {
+    m_pController = Controller::GetInstance<ObjImporter, ObjExporter>();
 }
 
 
 /*************************************************************************
-【函数名称】Viewer::main_loop
+【函数名称】Viewer::MainLoop
 【函数功能】程序的主体循环，会不停调用one_loop()直到其返回false
 【参数】无参数
 【返回值】无返回值
@@ -65,8 +63,8 @@ void Viewer::initialize() {
 【更改记录】
     2024-08-13 完成了函数定义
 *************************************************************************/
-void Viewer::main_loop() {
-    while (one_loop()) {
+void Viewer::MainLoop() {
+    while (OneLoop()) {
         // Empty loop
     }
 }
@@ -80,50 +78,51 @@ void Viewer::main_loop() {
 【更改记录】
     2024-08-13 完成了函数定义
 *************************************************************************/
-bool Viewer::one_loop() {
-    std::cout << "1. Import Model." << std::endl
-              << "2. Export Model." << std::endl
-              << "3. List all faces." << std::endl
-              << "4. Delete face." << std::endl 
-              << "5. Add face." << std::endl 
-              << "6. Points in face." << std::endl 
-              << "7. Modify face." << std::endl 
-              << "8. List all lines." << std::endl 
-              << "9. Delete line." << std::endl 
-              << "10. Add line." << std::endl 
-              << "11. Points in line. " << std::endl
-              << "12. Modify line." << std::endl
-              << "13. Show Statistics." << std::endl
-              << "14. Exit." << std::endl;
+bool Viewer::OneLoop() {
+    std::cout 
+        << "1. Import Model." << std::endl
+        << "2. Export Model." << std::endl
+        << "3. List all faces." << std::endl
+        << "4. Delete face." << std::endl 
+        << "5. Add face." << std::endl 
+        << "6. Points in face." << std::endl 
+        << "7. Modify face." << std::endl 
+        << "8. List all lines." << std::endl 
+        << "9. Delete line." << std::endl 
+        << "10. Add line." << std::endl 
+        << "11. Points in line. " << std::endl
+        << "12. Modify line." << std::endl
+        << "13. Show Statistics." << std::endl
+        << "14. Exit." << std::endl;
     std::cout << "Type the number of the options:";
     int num;
     std::cin >> num;
     if (num == 1) {
-        importModel();
+        ImportModel();
     } else if (num == 2) {
-        exportModel();
+        ExportModel();
     } else if (num == 3) {
-        listAllFaces();
+        ListAllFaces();
     } else if (num == 4) {
-        deleteFace();
+        DeleteFace();
     } else if (num == 5) {
-        addFace();
+        AddFace();
     } else if (num == 6) {
-        pointsInFace();
+        PointsInFace();
     } else if (num == 7) {
-        modifyFace();
+        ModifyFace();
     } else if (num == 8) {
-        listAllLines();
+        ListAllLines();
     } else if (num == 9) {
-        deleteLine();
+        DeleteLine();
     } else if (num == 10) {
-        addLine();
+        AddLine();
     } else if (num == 11) {
-        pointsInLine();
+        PointsInLine();
     } else if (num == 12) {
-        modifyLine();
+        ModifyLine();
     } else if (num == 13) {
-        showStatistics();
+        ShowStatistics();
     } else if (num == 14) {
         return false;
     } else {
@@ -133,7 +132,7 @@ bool Viewer::one_loop() {
 }
 
 /*************************************************************************
-【函数名称】Viewer::importModel
+【函数名称】Viewer::ImportModel
 【函数功能】从用户获取文件路径并导入模型
 【参数】无参数
 【返回值】无返回值
@@ -141,20 +140,20 @@ bool Viewer::one_loop() {
 【更改记录】
     2024-08-13 完成了函数定义
 *************************************************************************/
-void Viewer::importModel() {
+void Viewer::ImportModel() {
     std::string path;
     std::cout << "Input filepath:";
     std::cin >> path;
-    if (m_pController->read(path)) {
+    if (m_pController->Read(path)) {
         std::cout << "Imported Model Successfully!" << std::endl;
     } else {
         std::cout << "Import Model Failed! Please retry!" << std::endl;
-        importModel();
+        ImportModel();
     }
 }
 
 /*************************************************************************
-【函数名称】Viewer::exportModel
+【函数名称】Viewer::ExportModel
 【函数功能】从用户获取文件路径并导出模型
 【参数】无参数
 【返回值】无返回值
@@ -162,20 +161,20 @@ void Viewer::importModel() {
 【更改记录】
     2024-08-13 完成了函数定义
 *************************************************************************/
-void Viewer::exportModel() {
+void Viewer::ExportModel() {
     std::string path;
     std::cout << "Input filepath:";
     std::cin >> path;
-    if (m_pController->write(path)) {
+    if (m_pController->Write(path)) {
         std::cout << "Exported Model Successfully!" << std::endl;
     } else {
         std::cout << "Export Model Failed! Please retry!" << std::endl;
-        exportModel();
+        ExportModel();
     }
 }
 
 /*************************************************************************
-【函数名称】Viewer::listAllFaces
+【函数名称】Viewer::ListAllFaces
 【函数功能】列出所有的面
 【参数】无参数
 【返回值】无返回值
@@ -183,15 +182,15 @@ void Viewer::exportModel() {
 【更改记录】
     2024-08-13 完成了函数定义
 *************************************************************************/
-void Viewer::listAllFaces() {
-    auto faceList = m_pController->getFace();
+void Viewer::ListAllFaces() {
+    auto faceList = m_pController->GetFace();
     for (int i = 0; i < faceList.size(); i++) {
         std::cout << "#" << i << ": " << faceList[i] << std::endl;
     }
 }
 
 /*************************************************************************
-【函数名称】Viewer::deleteFace
+【函数名称】Viewer::DeleteFace
 【函数功能】删除面，面的下标从用户处获取
 【参数】无参数
 【返回值】无返回值
@@ -199,20 +198,20 @@ void Viewer::listAllFaces() {
 【更改记录】
     2024-08-13 完成了函数定义
 *************************************************************************/
-void Viewer::deleteFace() {
+void Viewer::DeleteFace() {
     int index;
     std::cout << "Input the index of the face to be deleted: ";
     std::cin >> index;
-    if (m_pController->deleteFace(index)) {
+    if (m_pController->DeleteFace(index)) {
         std::cout << "Deleted face #" << index << " successfully!" << std::endl;
     } else {
         std::cout << "Delete face failed! Please retry!" << std::endl;
-        deleteFace();
+        DeleteFace();
     }
 }
 
 /*************************************************************************
-【函数名称】Viewer::addFace
+【函数名称】Viewer::AddFace
 【函数功能】添加面
 【参数】无参数
 【返回值】无返回值
@@ -220,7 +219,7 @@ void Viewer::deleteFace() {
 【更改记录】
     2024-08-13 完成了函数定义
 *************************************************************************/
-void Viewer::addFace() {
+void Viewer::AddFace() {
     Point3D PointArray[3];
     std::cout << "Input the first point: ";
     std::cin >> PointArray[0];
@@ -228,17 +227,17 @@ void Viewer::addFace() {
     std::cin >> PointArray[1];
     std::cout << "Input the third point: ";
     std::cin >> PointArray[2];
-    if (m_pController->addFace(
+    if (m_pController->AddFace(
         PointArray[0], PointArray[1], PointArray[2])) {
         std::cout << "Added Face Successfully" << std::endl;
     } else {
         std::cout << "Add Face Failed! Please retry!" << std::endl;
-        addFace();
+        AddFace();
     }
 }
 
 /*************************************************************************
-【函数名称】Viewer::pointsInFace
+【函数名称】Viewer::PointsInFace
 【函数功能】显示一个面中的所有点
 【参数】无参数
 【返回值】无返回值
@@ -246,11 +245,11 @@ void Viewer::addFace() {
 【更改记录】
     2024-08-13 完成了函数定义
 *************************************************************************/
-void Viewer::pointsInFace() {
+void Viewer::PointsInFace() {
     std::cout << "Input the index of the face: ";
     int index;
     std::cin >> index;
-    auto points_opt = m_pController->pointsInFace(index);
+    auto points_opt = m_pController->PointsInFace(index);
     if (points_opt != std::nullopt) {
         auto points = points_opt.value();
         for (int i = 0; i < 3; i++) {
@@ -258,12 +257,12 @@ void Viewer::pointsInFace() {
         }
     } else {
         std::cout << "Get points in face failed! Please retry!" << std::endl;
-        pointsInFace();
+        PointsInFace();
     }
 }
 
 /*************************************************************************
-【函数名称】Viewer::modifyFace
+【函数名称】Viewer::ModifyFace
 【函数功能】更改面
 【参数】无参数
 【返回值】无返回值
@@ -271,7 +270,7 @@ void Viewer::pointsInFace() {
 【更改记录】
     2024-08-13 完成了函数定义
 *************************************************************************/
-void Viewer::modifyFace() {
+void Viewer::ModifyFace() {
     std::cout << "Input the index of the face: ";
     int index;
     std::cin >> index;
@@ -281,16 +280,16 @@ void Viewer::modifyFace() {
     std::cout << "Input the new point: ";
     Point3D newPoint;
     std::cin >> newPoint;
-    if (m_pController->modifyPointInFace(index, whichPoint, newPoint)) {
+    if (m_pController->ModifyPointInFace(index, whichPoint, newPoint)) {
         std::cout << "Modified face successfully!" << std::endl;
     } else {
         std::cout << "Modify face failed! Please retry!" << std::endl;
-        modifyFace();
+        ModifyFace();
     }
 }
 
 /*************************************************************************
-【函数名称】Viewer::listAllLines
+【函数名称】Viewer::ListAllLines
 【函数功能】列出所有的线段
 【参数】无参数
 【返回值】无返回值
@@ -298,15 +297,15 @@ void Viewer::modifyFace() {
 【更改记录】
     2024-08-13 完成了函数定义
 *************************************************************************/
-void Viewer::listAllLines() {
-    auto lineList = m_pController->getLine();
+void Viewer::ListAllLines() {
+    auto lineList = m_pController->GetLine();
     for (int i = 0; i < lineList.size(); i++) {
         std::cout << "#" << i << ": " << lineList[i] << std::endl;
     }
 }
 
 /*************************************************************************
-【函数名称】Viewer::deleteLine
+【函数名称】Viewer::DeleteLine
 【函数功能】删除线段，线段的下标从用户处获取
 【参数】无参数
 【返回值】无返回值
@@ -314,20 +313,20 @@ void Viewer::listAllLines() {
 【更改记录】
     2024-08-13 完成了函数定义
 *************************************************************************/
-void Viewer::deleteLine() {
+void Viewer::DeleteLine() {
     int index;
     std::cout << "Input the index of the line to be deleted: ";
     std::cin >> index;
-    if (m_pController->deleteLine(index)) {
+    if (m_pController->DeleteLine(index)) {
         std::cout << "Deleted line #" << index << " successfully!" << std::endl;
     } else {
         std::cout << "Delete line failed! Please retry!" << std::endl;
-        deleteLine();
+        DeleteLine();
     }
 }
 
 /*************************************************************************
-【函数名称】Viewer::addLine
+【函数名称】Viewer::AddLine
 【函数功能】添加线段
 【参数】无参数
 【返回值】无返回值
@@ -335,22 +334,22 @@ void Viewer::deleteLine() {
 【更改记录】
     2024-08-13 完成了函数定义
 *************************************************************************/
-void Viewer::addLine() {
+void Viewer::AddLine() {
     Point3D PointArray[2];
     std::cout << "Input the first point: ";
     std::cin >> PointArray[0];
     std::cout << "Input the second point: ";
     std::cin >> PointArray[1];
-    if (m_pController->addLine(PointArray[0], PointArray[1])) {
+    if (m_pController->AddLine(PointArray[0], PointArray[1])) {
         std::cout << "Added Line Successfully" << std::endl;
     } else {
         std::cout << "Add Line Failed! Please retry!" << std::endl;
-        addLine();
+        AddLine();
     }
 }
 
 /*************************************************************************
-【函数名称】Viewer::pointsInLine
+【函数名称】Viewer::PointsInLine
 【函数功能】显示一个线段中的所有点
 【参数】无参数
 【返回值】无返回值
@@ -358,11 +357,11 @@ void Viewer::addLine() {
 【更改记录】
     2024-08-13 完成了函数定义
 *************************************************************************/
-void Viewer::pointsInLine() {
+void Viewer::PointsInLine() {
     std::cout << "Input the index of the line: ";
     int index;
     std::cin >> index;
-    auto points_opt = m_pController->pointsInLine(index);
+    auto points_opt = m_pController->PointsInLine(index);
     if (points_opt != std::nullopt) {
         auto points = points_opt.value();
         for (int i = 0; i < 2; i++) {
@@ -370,12 +369,12 @@ void Viewer::pointsInLine() {
         }
     } else {
         std::cout << "Get points in line failed! Please retry!" << std::endl;
-        pointsInLine();
+        PointsInLine();
     }
 }
 
 /*************************************************************************
-【函数名称】Viewer::modifyLine
+【函数名称】Viewer::ModifyLine
 【函数功能】更改线段
 【参数】无参数
 【返回值】无返回值
@@ -383,7 +382,7 @@ void Viewer::pointsInLine() {
 【更改记录】
     2024-08-13 完成了函数定义
 *************************************************************************/
-void Viewer::modifyLine() {
+void Viewer::ModifyLine() {
     std::cout << "Input the index of the line: ";
     int index;
     std::cin >> index;
@@ -393,17 +392,17 @@ void Viewer::modifyLine() {
     std::cout << "Input the new point: ";
     Point3D newPoint;
     std::cin >> newPoint;
-    if (m_pController->modifyPointInLine(index, whichPoint, newPoint)) {
+    if (m_pController->ModifyPointInLine(index, whichPoint, newPoint)) {
         std::cout << "Modified line successfully!" << std::endl;
     } else {
         std::cout << "Modify line failed! Please retry!" << std::endl;
-        modifyLine();
+        ModifyLine();
     }
 }
 
 
 /*************************************************************************
-【函数名称】Viewer::showStatistics
+【函数名称】Viewer::ShowStatistics
 【函数功能】展示统计信息
 【参数】无参数
 【返回值】无返回值
@@ -411,19 +410,20 @@ void Viewer::modifyLine() {
 【更改记录】
     2024-08-13 完成了函数定义
 *************************************************************************/
-void Viewer::showStatistics() {
-    auto stat = m_pController->showStat();
-    std::cout << "Face Count: " << stat.FaceCount << std::endl
-              << "Face Area: " << stat.FaceArea << std::endl
-              << "Line Count: " << stat.LineCount << std::endl 
-              << "Line Length:" <<stat.LineLength << std::endl 
-              << "Point Count: " << stat.PointCount << std::endl 
-              << "Volume of Axix-Aligned Bounding Box: " << stat.AABBVolume
-              << std::endl;
+void Viewer::ShowStatistics() {
+    auto stat = m_pController->ShowStat();
+    std::cout 
+        << "Face Count: " << stat.FaceCount << std::endl
+        << "Face Area: " << stat.FaceArea << std::endl
+        << "Line Count: " << stat.LineCount << std::endl 
+        << "Line Length:" <<stat.LineLength << std::endl 
+        << "Point Count: " << stat.PointCount << std::endl 
+        << "Volume of Axix-Aligned Bounding Box: " << stat.AABBVolume
+        << std::endl;
 }
 
 /*************************************************************************
-【函数名称】Viewer::exit
+【函数名称】Viewer::Exit
 【函数功能】退出程序前的收尾工作。是虚函数以便重写
 【参数】无参数
 【返回值】无返回值
@@ -431,6 +431,6 @@ void Viewer::showStatistics() {
 【更改记录】
     2024-08-13 完成了函数定义
 *************************************************************************/
-void Viewer::exit() {
+void Viewer::Exit() {
     std::cout << "Exiting..." << std::endl;
 }
