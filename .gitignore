@@ -13,3 +13,6 @@ build/
 .vscode/
 
 *.zip
+
+.clang-format
+.clang-tidy
