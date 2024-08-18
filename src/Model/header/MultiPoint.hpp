@@ -8,8 +8,8 @@
     2024-08-16 为构造函数加入了重复点检查
 *************************************************************************/
 
-#ifndef MultiPoint_hpp
-#define MultiPoint_hpp
+#ifndef MULTIPOINT_HPP
+#define MULTIPOINT_HPP
 
 #include "Point3D.hpp"
 #include <algorithm>

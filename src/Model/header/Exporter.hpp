@@ -6,8 +6,8 @@
     2024-07-27 完成了函数声明
 *************************************************************************/
 
-#ifndef Exporter_hpp
-#define Exporter_hpp
+#ifndef EXPORTER_HPP
+#define EXPORTER_HPP
 
 #include "Model3D.hpp"
 #include <fstream>

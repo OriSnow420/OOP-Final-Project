@@ -6,8 +6,8 @@
     2024-07-23 完成了函数声明
 *************************************************************************/
 
-#ifndef objImporter_hpp
-#define objImporter_hpp
+#ifndef OBJIMPORTER_HPP
+#define OBJIMPORTER_HPP
 
 #include "Importer.hpp"
 #include "Model3D.hpp"

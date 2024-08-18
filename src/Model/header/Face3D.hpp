@@ -6,8 +6,8 @@
     2024-07-20 完成了函数声明
 *************************************************************************/
 
-#ifndef Face3D_hpp
-#define Face3D_hpp
+#ifndef FACE3D_HPP
+#define FACE3D_HPP
 
 #include "MultiPoint.hpp"
 #include "Point3D.hpp"

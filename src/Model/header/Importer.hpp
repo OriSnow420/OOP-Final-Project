@@ -6,8 +6,8 @@
     2024-07-23 完成了Importer类的声明
 *************************************************************************/
 
-#ifndef Importer_cpp
-#define Importer_cpp
+#ifndef IMPORTER_HPP
+#define IMPORTER_HPP
 
 #include "Model3D.hpp"
 #include <fstream>

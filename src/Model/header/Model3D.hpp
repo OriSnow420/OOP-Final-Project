@@ -8,8 +8,8 @@
     2024-08-09 为Model添加了默认拷贝构造和拷贝赋值
 *************************************************************************/
 
-#ifndef Model3D_hpp
-#define Model3D_hpp
+#ifndef MODEL3D_HPP
+#define MODEL3D_HPP
 
 #include "Face3D.hpp"
 #include "Line3D.hpp"

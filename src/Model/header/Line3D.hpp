@@ -7,8 +7,8 @@
     2024-08-16 为Line3D加入了默认构造和析构函数
 *************************************************************************/
 
-#ifndef Line3D_hpp
-#define Line3D_hpp
+#ifndef LINE3D_HPP
+#define LINE3D_HPP
 
 #include "MultiPoint.hpp"
 #include "Point3D.hpp"
