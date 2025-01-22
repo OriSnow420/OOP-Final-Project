@@ -1,6 +1,8 @@
 # About the Repository
-Homework for OOP Program Designing. 
+My homework for OOP Program Designing, 2024Su, Department of Automation, Tsinghua Univ. 
 The program simulates a 3D-Model. Only support .obj files.
+
+This is an A- Homework. Not too good, but enough.
 
 # IO-Format
 ## Point3D
@@ -37,6 +39,6 @@ Absolute Path is supported. The support of relative path is untested.
 At least C++17 standrd. Building with xmake and MSVC is appreciated.
 
 # About Development Environment
-Windows 11 家庭中文版 23H2
-Visual Studio Code 1.91.1
-Microsoft Visual Studio Community 2022 (64 位) - Current 版本 17.10.3
+- Windows 11 家庭中文版 23H2
+- Visual Studio Code 1.91.1
+- Microsoft Visual Studio Community 2022 (64 位) - Current 版本 17.10.3
